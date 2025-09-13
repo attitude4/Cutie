@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>For My Cute GF ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(to bottom, #ffe4ec, #fff);
+      text-align: center;
+      overflow-x: hidden;
+    }
+    .card {
+      max-width: 600px;
+      margin: 50px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+    h1 { color: #ff4d79; }
+    p { font-size: 18px; }
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .yes { background: #ff4d79; color: #fff; }
+    .no { background: #ddd; }
+    .flowers {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .flower {
+      position: absolute;
+      top: -10px;
+      width: 20px;
+      height: 20px;
+      background: pink;
+      border-radius: 50%;
+      animation: fall 6s linear infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+    img {
+      max-width: 100%;
+      border-radius: 15px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="flowers" id="flowers"></div>
+  <div class="card" id="card">
+    <h1>Hi Love ❤️</h1>
+    <p id="message">I made this just for you...</p>
+    <div id="buttons">
+      <button onclick="nextMessage()">Next ➡️</button>
+    </div>
+    <audio id="song" loop autoplay>
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    </audio>
+  </div>
+
+  <script>
+    const messages = [
+      "Hi lovely ❤️ — I made this tiny surprise just for you.",
+      "Every time I see you, my day gets brighter like spring 🌸",
+      "If smiles were flowers, I'd pick you a garden every day 🌹",
+      "You make my heart skip like the first note of a song 🎶",
+      "I like your eyes, your voice, and how you eat panipuri 😋",
+      "Will you let me keep making you smile forever? 💖"
+    ];
+
+    let index = 0;
+    const msg = document.getElementById("message");
+    const btns = document.getElementById("buttons");
+    const flowers = document.getElementById("flowers");
+
+    function nextMessage() {
+      index++;
+      if (index < messages.length - 1) {
+        msg.innerText = messages[index];
+      } else if (index === messages.length - 1) {
+        msg.innerText = messages[index];
+        btns.innerHTML = `
+          <button class="yes" onclick="sayYes()">Yes ❤️</button>
+          <button class="no" onclick="sayNo()">No 😅</button>
+        `;
+      }
+    }
+
+    function sayYes() {
+      msg.innerText = "Yay! Here's a bouquet just for you 🌷🌹";
+      createFlowers();
+      btns.innerHTML = "<button onclick='showPanipuri()'>Next Surprise 🍽️</button>";
+    }
+
+    function sayNo() {
+      msg.innerText = "Haha it's okay 😅 Still love you lots ❤️";
+      btns.innerHTML = "<button onclick='showPanipuri()'>Next Surprise 🍽️</button>";
+    }
+
+    function showPanipuri() {
+      msg.innerText = "Your Favourite — Panipuri! 😋";
+      btns.innerHTML = "";
+      document.getElementById("card").innerHTML += `
+        <img src="https://i.imgur.com/jwQHjZL.jpg" alt="Panipuri">
+      `;
+    }
+
+    function createFlowers() {
+      for (let i = 0; i < 30; i++) {
+        const f = document.createElement("div");
+        f.className = "flower";
+        f.style.left = Math.random() * 100 + "vw";
+        f.style.animationDuration = 3 + Math.random() * 3 + "s";
+        f.style.background = ["#ff7ab6","#ffcf5a","#ff5a8a"][Math.floor(Math.random()*3)];
+        flowers.appendChild(f);
+        setTimeout(()=>f.remove(),6000);
+      }
+    }
+  </script>
+</body>
+</html>
