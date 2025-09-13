@@ -12,26 +12,28 @@
       overflow-x: hidden;
     }
     .card {
-      max-width: 600px;
+      max-width: 700px;
       margin: 50px auto;
       background: #fff;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.15);
     }
-    h1 { color: #ff4d79; }
-    p { font-size: 18px; }
+    h1 { color: #ff4d79; font-size: 32px; margin-bottom: 20px; }
+    p { font-size: 22px; line-height: 1.6; white-space: pre-line; }
     button {
       margin: 10px;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border: none;
       border-radius: 25px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: bold;
+      transition: 0.3s;
     }
     .yes { background: #ff4d79; color: #fff; }
     .no { background: #ddd; }
+    .yes:hover, .no:hover { transform: scale(1.05); }
     .flowers {
       position: fixed;
       top: 0;
@@ -45,8 +47,8 @@
     .flower {
       position: absolute;
       top: -10px;
-      width: 20px;
-      height: 20px;
+      width: 24px;
+      height: 24px;
       background: pink;
       border-radius: 50%;
       animation: fall 6s linear infinite;
@@ -55,11 +57,11 @@
       0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
       100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
     }
-    img {
-      max-width: 100%;
-      border-radius: 15px;
+    .bouquet {
+      font-size: 60px;
       margin-top: 20px;
     }
+    audio { margin-top: 20px; }
   </style>
 </head>
 <body>
@@ -70,19 +72,45 @@
     <div id="buttons">
       <button onclick="nextMessage()">Next ➡️</button>
     </div>
-    <audio id="song" loop autoplay>
-      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+
+    <!-- 🎶 Romantic Song Zaalima -->
+    <audio id="song" autoplay loop controls>
+      <source src="https://pagalfree.com/musics/128-Zaalima%20-%20Raees%20128%20Kbps.mp3" type="audio/mp3">
+      Your browser does not support audio.
     </audio>
   </div>
 
   <script>
     const messages = [
-      "Hi lovely ❤️ — I made this tiny surprise just for you.",
-      "Every time I see you, my day gets brighter like spring 🌸",
-      "If smiles were flowers, I'd pick you a garden every day 🌹",
-      "You make my heart skip like the first note of a song 🎶",
-      "I like your eyes, your voice, and how you eat panipuri 😋",
-      "Will you let me keep making you smile forever? 💖"
+      `Hi my love ❤️
+You are the best part of my day,
+Whenever I think of you, I smile,
+And I wanted to give you a little surprise,
+Because you deserve all the happiness 🌸`,
+      
+      `Your smile is like sunshine ☀️
+It lights up everything around me,
+Your laugh is like music 🎶
+And it makes my heart dance,
+Every moment with you feels special ❤️`,
+      
+      `If I could give you one thing,
+I’d give you the ability to see yourself,
+Through my eyes 👀
+Then you would realize,
+How truly beautiful you are 💖`,
+      
+      `You’re my favorite person,
+My favorite thought, my favorite dream 🌙
+Every second with you is a gift 🎁
+And I just want to say,
+I’ll never stop caring for you 💕`,
+      
+      `So now my question is…
+Will you let me keep making you smile,
+Keep making you happy,
+And keep giving you love,
+Forever and always? 💍`
     ];
 
     let index = 0;
@@ -104,26 +132,33 @@
     }
 
     function sayYes() {
-      msg.innerText = "Yay! Here's a bouquet just for you 🌷🌹";
+      msg.innerText = `Yay! 🌹
+You said yes,
+So here’s a bouquet of flowers,
+Just for you my love ❤️
+I’ll always be with you.`;
       createFlowers();
-      btns.innerHTML = "<button onclick='showPanipuri()'>Next Surprise 🍽️</button>";
+      btns.innerHTML = "";
+      showBouquet();
     }
 
     function sayNo() {
-      msg.innerText = "Haha it's okay 😅 Still love you lots ❤️";
-      btns.innerHTML = "<button onclick='showPanipuri()'>Next Surprise 🍽️</button>";
+      msg.innerText = `Haha it’s okay 😅
+Even if you said no,
+I’ll still be here,
+Loving you quietly 🌸`;
+      btns.innerHTML = "";
+      showBouquet();
     }
 
-    function showPanipuri() {
-      msg.innerText = "Your Favourite — Panipuri! 😋";
-      btns.innerHTML = "";
-      document.getElementById("card").innerHTML += `
-        <img src="https://i.imgur.com/jwQHjZL.jpg" alt="Panipuri">
-      `;
+    function showBouquet() {
+      const card = document.getElementById("card");
+      card.innerHTML += `<div class="bouquet">💐🌹🌸🌷🌼</div>`;
+      createFlowers();
     }
 
     function createFlowers() {
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 40; i++) {
         const f = document.createElement("div");
         f.className = "flower";
         f.style.left = Math.random() * 100 + "vw";
@@ -133,6 +168,9 @@
         setTimeout(()=>f.remove(),6000);
       }
     }
+
+    // Start with first message
+    msg.innerText = messages[0];
   </script>
 </body>
 </html>
